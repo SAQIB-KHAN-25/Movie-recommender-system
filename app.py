@@ -4,7 +4,9 @@ import requests
 
 
 def fetch_poster(movie_id):
-    url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=f88a1b16acb5ab6a80dc8b84be6a4f56&language=en-US"
+    api_key = st.secrets["TMDB_API_KEY"]
+
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={api_key}&language=en-US"
 
     response = requests.get(url)
     data = response.json()
@@ -44,8 +46,8 @@ def recommend(movie):
 st.header('Movie Recommender System')
 
 # Correct file paths
-movies = pickle.load(open('movies.pkl', 'rb'))
-similarity = pickle.load(open('similarity.pkl', 'rb'))
+movies = pickle.load(open('model/movies.pkl', 'rb'))
+similarity = pickle.load(open('model/similarity.pkl', 'rb'))
 
 movie_list = movies['title'].values
 
